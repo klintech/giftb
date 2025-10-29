@@ -15,7 +15,7 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/Logo.png"
+              src="/logo.png"
               alt="GiftBridge"
               width={64}
               height={64}
