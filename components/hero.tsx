@@ -38,7 +38,7 @@ export function Hero() {
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-3xl animate-pulse-glow" />
             <div className="relative h-full rounded-3xl border border-primary/20 overflow-hidden">
               <Image
-                src="/Logo1.png"
+                src="/logo1.png"
                 alt="Premium gift selection"
                 fill
                 className="object-cover"
