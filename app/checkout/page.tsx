@@ -21,7 +21,7 @@ export default function CheckoutPage() {
     recipientCity: "",
     recipientCountry: "",
     senderName: "",
-    senderEmail: "", // CRITICAL FIELD
+    senderEmail: "", 
     message: "",
   })
   
@@ -33,7 +33,6 @@ export default function CheckoutPage() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  // --- Robust Client-Side Validation ---
   const isFormValid = useMemo(() => {
     const requiredFields = [
         formData.recipientName,
@@ -43,12 +42,11 @@ export default function CheckoutPage() {
         formData.recipientCity,
         formData.recipientCountry,
         formData.senderName,
-        formData.senderEmail, // CRITICAL: Must be checked
+        formData.senderEmail, 
     ];
     
     const allRequiredFieldsFilled = requiredFields.every(val => val.trim() !== "");
     
-    // CRITICAL: Total must be greater than zero, and all required fields must be filled
     return allRequiredFieldsFilled && total > 0;
   }, [formData, total]);
   // -------------------------------------
@@ -64,18 +62,11 @@ export default function CheckoutPage() {
     setError(null)
     setIsLoading(true)
 
-    // 1. Prepare Order Payload for the Backend
-    // CRITICAL FIX: Flattened the structure to ensure 'total' and 'senderEmail' are at the root
     const orderData = {
-        // --- CRITICAL FIELDS (Required by your PHP handler) ---
-        total: total, // FIX 1: PHP expects 'total', not 'total_amount'
-        senderEmail: formData.senderEmail, // FIX 2: PHP expects 'senderEmail' at the root
+        total: total,
+        senderEmail: formData.senderEmail, 
         
-        // Paystack needs a redirect URL to send the user back after payment attempt
         statusUrl: window.location.origin + "/checkout/status", 
-        // ----------------------------------------------------
-
-        // --- Other data for backend processing/storage ---
         recipientName: formData.recipientName,
         recipientEmail: formData.recipientEmail,
         recipientPhone: formData.recipientPhone,
@@ -105,10 +96,6 @@ export default function CheckoutPage() {
 
       const data = await res.json()
 
-      // Paystack response check
-      // Note: Paystack responses often return the authorization URL under data.authorization_url,
-      // but if your PHP handler flattens it, it might be at the root. We check both based on the
-      // common Paystack pattern in your previous code: data.data?.authorization_url
       const authUrl = data.data?.authorization_url || data.authorization_url;
 
       if (res.ok && data.status === 'success' && authUrl) {
@@ -137,8 +124,6 @@ export default function CheckoutPage() {
   if (items.length === 0 || total === 0) {
     return (
       <main className="min-h-screen bg-gray-50 font-sans text-gray-800">
-        {/* Tailwind CSS import for consistent styling */}
-        <script src="https://cdn.tailwindcss.com"></script>
         <style>{`body { font-family: "Inter", sans-serif; }`}</style>
         <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
@@ -170,7 +155,7 @@ export default function CheckoutPage() {
           Back to Cart
         </Link>
 
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-12">Secure Checkout</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-12">Checkout</h1>
 
         <div className="grid lg:grid-cols-3 gap-10">
           {/* Checkout Form */}
@@ -239,7 +224,7 @@ export default function CheckoutPage() {
 
               {/* Sender Information */}
               <div className={cardClass}>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-6 border-b border-gray-100 pb-4">2. Your Information (Payer) *</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6 border-b border-gray-100 pb-4">2. Your Information *</h2>
                 <div className="grid md:grid-cols-2 gap-4">
                   <input
                     type="text"
@@ -270,16 +255,6 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Payment Notice */}
-              <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-xl flex gap-3 shadow-sm">
-                <AlertCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-semibold text-gray-900 mb-1">Secure Payment via Paystack</p>
-                  <p className="text-gray-600 text-sm">
-                    Ensure the email provided in Section 2 is correct, as Paystack requires it to initiate the transaction.
-                  </p>
-                </div>
-              </div>
               
               {/* Error Display */}
               {error && (
@@ -310,12 +285,6 @@ export default function CheckoutPage() {
                   </>
                 )}
               </button>
-
-              {!isFormValid && (
-                    <p className="text-red-500 text-center text-sm font-medium pt-2">
-                        * Please fill all fields marked with * and ensure the cart total is greater than zero.
-                    </p>
-                )}
             </form>
           </div>
 
