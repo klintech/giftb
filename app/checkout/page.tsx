@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { ChevronLeft, AlertCircle } from "lucide-react"
@@ -9,8 +8,10 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { useCart } from "@/hooks/use-cart"
 
+const ORDER_API_ENDPOINT = `https://preciousadedokun.com.ng/test23/paystack.php`
+
 export default function CheckoutPage() {
-  const { items, getTotalPrice } = useCart()
+  const { items, getTotalPrice, clearCart } = useCart() // Added clearCart for post-payment action
   const total = getTotalPrice()
   const [formData, setFormData] = useState({
     recipientName: "",
@@ -23,17 +24,79 @@ export default function CheckoutPage() {
     senderEmail: "",
     message: "",
   })
+  
+  // --- New State for Backend Interaction ---
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  // ----------------------------------------
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const initiatePayment = async (e: React.FormEvent) => {
     e.preventDefault()
-    // This is where Paystack integration would happen
-    console.log("Checkout data:", { ...formData, items, total })
-    alert("Checkout form ready for Paystack integration. Check console for details.")
+    setError(null)
+    setIsLoading(true)
+
+    // 1. Prepare Order Payload for the Backend
+    const orderData = {
+      // Order details required by your backend
+      customer_info: {
+        name: formData.senderName,
+        email: formData.senderEmail,
+      },
+      shipping_info: {
+        recipient_name: formData.recipientName,
+        email: formData.recipientEmail,
+        phone: formData.recipientPhone,
+        address: formData.recipientAddress,
+        city: formData.recipientCity,
+        country: formData.recipientCountry,
+      },
+      items: items.map(item => ({
+        product_id: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      total_amount: total,
+      notes: formData.message,
+    }
+
+    try {
+      // 2. Call Backend API to Create Order and Get Payment Link
+      const res = await fetch(ORDER_API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      })
+
+      const data = await res.json()
+
+      // 3. Handle Backend Response
+      if (res.ok && data.status === 'success' && data.data?.authorization_url) {
+        // Clear cart locally before redirecting
+        // This is a common pattern, assuming payment will succeed
+        clearCart() 
+        
+        // 4. Redirect to Paystack for Payment
+        window.location.href = data.data.authorization_url
+
+      } else {
+        // Handle API errors (e.g., validation failed, product out of stock)
+        setError(data.message || 'Failed to create order. Please try again.')
+      }
+
+    } catch (err) {
+      // Handle network errors or unexpected issues
+      console.error('Checkout API Error:', err)
+      setError('A network error occurred. Please check your connection and try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (items.length === 0) {
@@ -68,7 +131,7 @@ export default function CheckoutPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Checkout Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={initiatePayment} className="space-y-8">
               {/* Recipient Information */}
               <div className="p-6 border border-border rounded-lg bg-card">
                 <h2 className="text-xl font-bold text-foreground mb-6">Recipient Information</h2>
@@ -173,12 +236,23 @@ export default function CheckoutPage() {
                   </p>
                 </div>
               </div>
+              
+              {/* Error Display */}
+              {error && (
+                <div className="p-4 bg-red-100 border border-red-300 text-red-700 rounded-lg flex gap-3">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm font-medium">{error}</p>
+                </div>
+              )}
 
               <button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all"
+                disabled={isLoading}
+                className={`w-full text-primary-foreground py-3 rounded-lg font-semibold transition-all ${
+                    isLoading ? 'bg-primary/70 cursor-not-allowed' : 'bg-primary hover:bg-primary/90'
+                }`}
               >
-                Proceed to Payment
+                {isLoading ? 'Processing Order...' : 'Proceed to Payment'}
               </button>
             </form>
           </div>
