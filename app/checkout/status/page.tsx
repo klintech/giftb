@@ -12,7 +12,7 @@ const Link: React.FC<{ href: string; children: React.ReactNode; className?: stri
         {children}
     </a>
 );
-const VERIFY_API_ENDPOINT = `https://preciousadedokun.com.ng/test23/paystack.php?action=verify`; 
+const VERIFY_API_ENDPOINT = `https://preciousadedokun.com.ng/test23/paystack.php?action=status`; 
 
 type Status = 'loading' | 'success' | 'failure';
 
@@ -145,7 +145,7 @@ export default function CheckoutStatusPage() {
             <XCircle className="w-20 h-20 text-red-500 mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Payment Verification Failed</h2>
             <p className="text-lg text-gray-600 mb-6">
-                We could not confirm the transaction. Your order was **not** placed.
+                We could not confirm the transaction. Your order was not placed.
             </p>
             {error && (
                 <p className="text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-200 mb-4">{error}</p>
