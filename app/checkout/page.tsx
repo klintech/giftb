@@ -8,7 +8,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { useCart } from "@/hooks/use-cart"
 
-const ORDER_API_ENDPOINT = `https://preciousadedokun.com.ng/test23/paystack.php`
+const ORDER_API_ENDPOINT = `https://preciousadedokun.com.ng/test23/paystack.php?action=initiate`
 
 export default function CheckoutPage() {
   const { items, getTotalPrice, clearCart } = useCart() // Added clearCart for post-payment action
@@ -65,7 +65,6 @@ export default function CheckoutPage() {
     }
 
     try {
-      // 2. Call Backend API to Create Order and Get Payment Link
       const res = await fetch(ORDER_API_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -76,22 +75,16 @@ export default function CheckoutPage() {
 
       const data = await res.json()
 
-      // 3. Handle Backend Response
       if (res.ok && data.status === 'success' && data.data?.authorization_url) {
-        // Clear cart locally before redirecting
-        // This is a common pattern, assuming payment will succeed
         clearCart() 
         
-        // 4. Redirect to Paystack for Payment
         window.location.href = data.data.authorization_url
 
       } else {
-        // Handle API errors (e.g., validation failed, product out of stock)
         setError(data.message || 'Failed to create order. Please try again.')
       }
 
     } catch (err) {
-      // Handle network errors or unexpected issues
       console.error('Checkout API Error:', err)
       setError('A network error occurred. Please check your connection and try again.')
     } finally {
