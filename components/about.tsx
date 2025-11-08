@@ -17,7 +17,7 @@ export function AboutPage() {
                 More Than Just <span className="text-primary">Gifts</span>, It's a Bridge.
               </h1>
               <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-                Born out of a desire to eliminate the distance in gift-giving, we connect the vibrant heart of **Nigeria** with loved ones across the globe. We believe every gift should be a seamless, joyful experience.
+                Born out of a desire to eliminate the distance in gift-giving, we connect the vibrant heart of Nigeria with loved ones across the globe. We believe every gift should be a seamless, joyful experience.
               </p>
               <Link
                 href="/store"
