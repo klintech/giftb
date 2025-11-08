@@ -12,11 +12,11 @@ export function PrivacyPolicy() {
           Privacy <span className="text-primary">Policy</span>
         </h1>
         <p className="text-lg text-foreground/70 mb-10">
-          **Effective Date:** \[Insert Date]
+          Effective Date: November 7, 2025
         </p>
         
         <p className="mb-8 text-foreground/80 leading-relaxed">
-          Your privacy is paramount to us. This Privacy Policy explains how **\[Your Company Name]** ("we," "us," or "our") collects, uses, discloses, and protects your information when you use our website and services (the "Service") to send gifts globally from Nigeria.
+          Your privacy is paramount to us. This Privacy Policy explains how  Giftb("we," "us," or "our") collects, uses, discloses, and protects your information when you use our website and services (the "Service") to send gifts globally from Nigeria.
         </p>
 
         {/* --- Section 1: Information We Collect --- */}
@@ -29,13 +29,13 @@ export function PrivacyPolicy() {
 
         <ul className="list-disc pl-6 space-y-3 text-foreground/80">
           <li>
-            **Personal Information You Provide:** Sender information (name, billing, payment), and **Recipient Information** (name, delivery address, message).
+            Personal Information You Provide: Sender information (name, billing, payment), and **Recipient Information** (name, delivery address, message).
           </li>
           <li>
-            **Automated Information Collection:** Usage Data (pages viewed, time spent) and Technical Data (IP address, browser type).
+            Automated Information Collection: Usage Data (pages viewed, time spent) and Technical Data (IP address, browser type).
           </li>
           <li>
-            **Communication Data:** Records of correspondence, including customer service inquiries.
+            Communication Data: Records of correspondence, including customer service inquiries.
           </li>
         </ul>
         
@@ -47,10 +47,10 @@ export function PrivacyPolicy() {
           We use your information for:
         </p>
         <ul className="list-disc pl-6 space-y-3 text-foreground/80">
-          <li>**Service Delivery:** To process and fulfill your gift orders, including international shipping logistics.</li>
-          <li>**Recipient Notification:** To provide the recipient with necessary tracking and delivery updates.</li>
-          <li>**Security & Fraud Prevention:** To protect our Service and prevent fraudulent transactions.</li>
-          <li>**Communication:** To send updates, promotions, and newsletters (with opt-out).</li>
+          <li>Service Delivery: To process and fulfill your gift orders, including international shipping logistics.</li>
+          <li>Recipient Notification: To provide the recipient with necessary tracking and delivery updates.</li>
+          <li>Security & Fraud Prevention: To protect our Service and prevent fraudulent transactions.</li>
+          <li>Communication: To send updates, promotions, and newsletters (with opt-out).</li>
         </ul>
 
         {/* --- Section 3: Disclosure --- */}
@@ -61,8 +61,8 @@ export function PrivacyPolicy() {
           We do not sell your Personal Information. We may share data with:
         </p>
         <ul className="list-disc pl-6 space-y-3 text-foreground/80">
-          <li>**Service Providers:** Payment processors and shipping carriers (essential for global delivery).</li>
-          <li>**Legal Compliance:** When required by law or subpoena.</li>
+          <li>Service Providers: Payment processors and shipping carriers (essential for global delivery).</li>
+          <li>Legal Compliance: When required by law or subpoena.</li>
         </ul>
         
         {/* --- Contact Section --- */}
@@ -74,10 +74,10 @@ export function PrivacyPolicy() {
         </p>
         <div className="flex flex-col gap-2">
             <p className="text-foreground">
-                **Email:** <span className="text-primary hover:underline">\[Your Support Email]</span>
+                Email: <span className="text-primary hover:underline">clintonkelvin739@gmail.com</span>
             </p>
             <p className="text-foreground">
-                **Address:** \[Your Business Address]
+                Address: Lagos 
             </p>
         </div>
         
