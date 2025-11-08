@@ -40,7 +40,7 @@ export function ContactUs() {
                 <div>
                   <h3 className="text-xl font-semibold text-foreground">Phone/WhatsApp</h3>
                   <p className="text-foreground/70">For urgent issues or immediate assistance.</p>
-                  <p className="text-primary font-medium">\[Your Phone Number]</p>
+                  <p className="text-primary font-medium">09123456789</p>
                 </div>
               </div>
               
@@ -50,7 +50,7 @@ export function ContactUs() {
                 <div>
                   <h3 className="text-xl font-semibold text-foreground">Office Location (Nigeria)</h3>
                   <p className="text-foreground/70">Our hub for sourcing and fulfillment.</p>
-                  <p className="text-primary font-medium">\[Your Full Business Address]</p>
+                  <p className="text-primary font-medium">Lagos, Nigeria</p>
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@ export function ContactUs() {
           <div className="bg-background p-8 md:p-10 rounded-3xl border border-primary/20 shadow-xl animate-slide-in-right">
             <h2 className="text-3xl font-bold text-foreground mb-6">Quick Inquiry</h2>
             <p className="text-foreground/70 mb-8">
-              Fill out the form below or check our **FAQ section** for immediate answers.
+              Fill out the form below or check our FAQ section for immediate answers.
             </p>
             
             {/* CTA to FAQ - Consistent Button Style */}
