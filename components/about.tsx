@@ -33,7 +33,7 @@ export function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-3xl animate-pulse-glow" />
               <div className="relative h-full rounded-3xl border border-primary/20 overflow-hidden">
                 <Image
-                  src="/about-image-main.jpg" // Replace with a meaningful About image
+                  src="https://static.vecteezy.com/system/resources/previews/047/784/131/non_2x/a-diverse-business-team-meets-around-a-table-discussing-strategies-with-a-world-map-as-their-backdrop-the-image-represents-global-collaboration-and-teamwork-free-vector.jpg" // Replace with a meaningful About image
                   alt="Team collaboration or global map"
                   fill
                   className="object-cover"
