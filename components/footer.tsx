@@ -42,7 +42,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="mailto:support@gifthub.com"
+                  href="/contact"
                   className="text-foreground/60 hover:text-primary text-sm transition-colors"
                 >
                   Contact Us
